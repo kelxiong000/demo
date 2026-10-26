@@ -24,4 +24,5 @@ summary <- penguins|>
     avg_mass = mean(body_mass_g, na.rm = TRUE)
   )
 print(summary)
+
 ```
