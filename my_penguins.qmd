@@ -1,28 +1,32 @@
 ---
-title: "demo"
+title: "Penguins"
+format: html
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
 ```{r}
-penguins<- glimpse(penguins)|>
-  group_by(species)
-
-  ggplot(data=penguins)+
-  geom_boxplot(aes(x=species, y=body_mass_g))
+#| label: setup
+#| message: false
+library(tidyverse)
+library(palmerpenguins)
 ```
 
 ```{r}
-summary <- penguins|>
-  group_by(species)|>
-  summarise(
-    Count = n(),
-    avg_depth = mean(bill_depth_mm, na.rm = TRUE),
-    avg_length = mean(bill_length_mm, na.rm = TRUE),
-    avg_mass = mean(body_mass_g, na.rm = TRUE)
-  )
-print(summary)
+glimpse(penguins)
+```
 
+```{r}
+penguins |>
+  group_by(species) |>
+  summarize(
+    Count      = n(),
+    avg_depth  = mean(bill_depth_mm, na.rm = TRUE),
+    avg_length = mean(bill_length_mm, na.rm = TRUE),
+    avg_mass   = mean(body_mass_g, na.rm = TRUE)
+  )
+```
+
+```{r}
+#| warning: false
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot()
 ```
