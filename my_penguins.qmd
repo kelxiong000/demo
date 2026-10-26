@@ -7,5 +7,21 @@ title: "demo"
 Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
 ```{r}
-1 + 1
+penguins<- glimpse(penguins)|>
+  group_by(species)
+
+  ggplot(data=penguins)+
+  geom_boxplot(aes(x=species, y=body_mass_g))
+```
+
+```{r}
+summary <- penguins|>
+  group_by(species)|>
+  summarise(
+    Count = n(),
+    avg_depth = mean(bill_depth_mm, na.rm = TRUE),
+    avg_length = mean(bill_length_mm, na.rm = TRUE),
+    avg_mass = mean(body_mass_g, na.rm = TRUE)
+  )
+print(summary)
 ```
